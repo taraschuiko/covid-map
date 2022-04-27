@@ -33,27 +33,35 @@ const Map = () => {
   };
 
   return (
-    <MapContainer
-      className="map"
-      center={[0, 13]}
-      zoom={2}
-      maxBounds={[
-        [75, 180],
-        [-50, -180],
-      ]}
-    >
-      {covidData && (
-        <GeoJSON
-          style={{ fillOpacity: 1, color: "#495D63" }}
-          data={countries.features}
-          onEachFeature={onEachCountry}
+    <>
+      <MapContainer
+        className="map"
+        center={[0, 13]}
+        zoom={2}
+        maxBounds={[
+          [75, 180],
+          [-50, -180],
+        ]}
+      >
+        {covidData && (
+          <GeoJSON
+            style={{ fillOpacity: 1, color: "#495D63" }}
+            data={countries.features}
+            onEachFeature={onEachCountry}
+          />
+        )}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      )}
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-    </MapContainer>
+      </MapContainer>
+      <div className="map-legend">
+        <div style={{ background: '#B5BD89' }}>&lt; 1 000</div>
+        <div style={{ background: '#DFBE99' }}>1 000 - 10 000</div>
+        <div style={{ background: '#EC9192' }}>10 000 - 50 000</div>
+        <div style={{ background: '#DB5375' }}>&gt; 50 000</div>
+      </div>
+    </>
   );
 };
 
