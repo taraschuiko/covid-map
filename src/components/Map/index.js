@@ -37,10 +37,14 @@ const Map = () => {
       className="map"
       center={[0, 13]}
       zoom={2}
+      maxBounds={[
+        [75, 180],
+        [-50, -180],
+      ]}
     >
       {covidData && (
         <GeoJSON
-          style={{ fillOpacity: 1, color: '#495D63' }}
+          style={{ fillOpacity: 1, color: "#495D63" }}
           data={countries.features}
           onEachFeature={onEachCountry}
         />
