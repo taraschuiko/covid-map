@@ -1,5 +1,5 @@
 import React from "react";
-import "./Map.css";
+import "./Map.scss";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import countries from "../../countries.json";
 import MapLegend from "../MapLegend";

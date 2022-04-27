@@ -1,0 +1,20 @@
+.map-legend {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  width: 80%;
+
+  div {
+    height: 60px;
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #ffffff;
+  }
+}

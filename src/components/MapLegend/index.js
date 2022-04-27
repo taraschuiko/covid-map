@@ -1,5 +1,5 @@
 import React from "react";
-import "./MapLegend.css";
+import "./MapLegend.scss";
 
 const MapLegend = () => (
   <div className="map-legend">
