@@ -2,6 +2,7 @@ import React from "react";
 import "./Map.css";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import countries from "../../countries.json";
+import MapLegend from "../MapLegend";
 
 const Map = () => {
   const [covidData, setCovidData] = React.useState();
@@ -55,12 +56,7 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
       </MapContainer>
-      <div className="map-legend">
-        <div style={{ background: '#B5BD89' }}>&lt; 1 000</div>
-        <div style={{ background: '#DFBE99' }}>1 000 - 10 000</div>
-        <div style={{ background: '#EC9192' }}>10 000 - 50 000</div>
-        <div style={{ background: '#DB5375' }}>&gt; 50 000</div>
-      </div>
+      <MapLegend />
     </>
   );
 };
