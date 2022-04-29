@@ -6,21 +6,72 @@ import MapLegend from "../MapLegend";
 import DetailedStats from "../DetailedStats";
 
 const Map = () => {
-  const [covidData, setCovidData] = React.useState();
+  const [countriesStats, setCountriesStats] = React.useState();
+  const [globalStats, setGlobalStats] = React.useState();
+  const [activeCountryStats, setActiveCountryStats] = React.useState();
 
-  const getCovidData = () => {
-    fetch("https://disease.sh/v3/covid-19/countries?yesterday=true")
-      .then((r) => r.json())
-      .then((data) => setCovidData(data));
+  const getCountriesStats = () => {
+    (async () => {
+      let stats = await fetch(
+        "https://disease.sh/v3/covid-19/countries?yesterday=true"
+      ).then((r) => r.json());
+
+      stats = await fetch(
+        "https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=2&fullData=false"
+      )
+        .then((r) => r.json())
+        .then((vaccineData) => {
+          const currentStats = [];
+
+          vaccineData.forEach((item) => {
+            const countryIndex = stats.findIndex(
+              (stat) => stat.country === item.country
+            );
+
+            const values = Object.values(item.timeline);
+
+            currentStats[countryIndex] = {
+              ...stats[countryIndex],
+              vaccinated: values[1],
+              todayVaccinated: values[1] - values[0],
+            };
+          });
+
+          return currentStats;
+        });
+
+      setCountriesStats(stats);
+    })();
   };
 
-  React.useEffect(getCovidData, []);
+  React.useEffect(getCountriesStats, []);
 
-  const onEachCountry = (feature, layer) => {
-    const countryIsoName = feature.properties.ISO_A3;
-    const countryCovidData = covidData.find(
-      (data) => data.countryInfo.iso3 === countryIsoName
-    );
+  const getGlobalStats = () => {
+    (async () => {
+      let stats = await fetch(
+        "https://disease.sh/v3/covid-19/all?yesterday=true"
+      ).then((r) => r.json());
+
+      stats = await fetch(
+        "https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=false"
+      )
+        .then((r) => r.json())
+        .then((data) => {
+          const values = Object.values(data);
+          return {
+            ...stats,
+            vaccinated: values[0],
+            todayVaccinated: values[0] - values[1],
+          };
+        });
+
+      setGlobalStats(stats);
+    })();
+  };
+
+  React.useEffect(getGlobalStats, []);
+
+  const setCountryColor = (countryCovidData, layer) => {
     if (countryCovidData) {
       if (countryCovidData.todayCases < 1000) {
         layer.options.fillColor = "#B5BD89";
@@ -34,7 +85,19 @@ const Map = () => {
     }
   };
 
-  return (
+  const onEachCountry = (feature, layer) => {
+    const countryIsoName = feature.properties.ISO_A3;
+    const countryCovidData = countriesStats.find(
+      (country) => country?.countryInfo.iso3 === countryIsoName
+    );
+
+    setCountryColor(countryCovidData, layer);
+    layer.on("click", () => {
+      setActiveCountryStats(countryCovidData);
+    });
+  };
+
+  return countriesStats ? (
     <>
       <MapContainer
         className="map"
@@ -45,7 +108,7 @@ const Map = () => {
           [-50, -180],
         ]}
       >
-        {covidData && (
+        {countriesStats && (
           <GeoJSON
             style={{ fillOpacity: 1, color: "#495D63" }}
             data={countries.features}
@@ -57,10 +120,13 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
       </MapContainer>
-      <DetailedStats />
+      <DetailedStats
+        activeCountryStats={activeCountryStats}
+        globalStats={globalStats}
+      />
       <MapLegend />
     </>
-  );
+  ) : null;
 };
 
 export default Map;
