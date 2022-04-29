@@ -101,12 +101,8 @@ const Map = () => {
     <>
       <MapContainer
         className="map"
-        center={[0, 13]}
+        center={[30, 85]}
         zoom={2}
-        maxBounds={[
-          [75, 180],
-          [-50, -180],
-        ]}
       >
         {countriesStats && (
           <GeoJSON
