@@ -97,7 +97,7 @@ const Map = () => {
     });
   };
 
-  return countriesStats ? (
+  return countriesStats && globalStats ? (
     <>
       <MapContainer
         className="map"
@@ -122,6 +122,7 @@ const Map = () => {
       </MapContainer>
       <DetailedStats
         activeCountryStats={activeCountryStats}
+        setActiveCountryStats={setActiveCountryStats}
         globalStats={globalStats}
       />
       <MapLegend />

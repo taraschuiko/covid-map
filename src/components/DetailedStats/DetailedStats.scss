@@ -1,4 +1,5 @@
 .detailed-stats {
+  width: 360px;
   position: absolute;
   right: 80px;
   top: 50%;
@@ -13,6 +14,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 40px;
+    position: relative;
 
     img {
       height: 50px;
@@ -22,6 +24,18 @@
     h3 {
       font-size: 24px;
       font-weight: bold;
+    }
+
+    &-close {
+      position: absolute;
+      top: -38px;
+      right: -34px;
+      padding: 5px;
+      color: #495D63;
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
     }
   }
 
@@ -49,5 +63,9 @@
       left: 0;
       font-size: 11px;
     }
+  }
+
+  &-updated {
+    font-size: 14px;
   }
 }
