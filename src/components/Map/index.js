@@ -101,7 +101,7 @@ const Map = () => {
     <>
       <MapContainer
         className="map"
-        center={[30, 85]}
+        center={[30, 75]}
         zoom={2}
       >
         {countriesStats && (
