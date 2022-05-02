@@ -1,11 +1,14 @@
 .map-legend {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 80px;
+  right: 80px;
   z-index: 999;
   display: flex;
-  width: 80%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 
   div {
     height: 60px;
@@ -14,7 +17,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
     color: #ffffff;
   }
 }
