@@ -106,7 +106,7 @@ const Map = () => {
       >
         {countriesStats && (
           <GeoJSON
-            style={{ fillOpacity: 1, color: "#495D63" }}
+            style={{ fillOpacity: 1, color: "#495D63", weight: 1 }}
             data={countries.features}
             onEachFeature={onEachCountry}
           />
