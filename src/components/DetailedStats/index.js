@@ -19,8 +19,6 @@ const DetailedStats = ({
 
   const closeCountryStats = () => setActiveCountryStats(null);
 
-  console.log(activeCountryStats);
-
   return (
     <div className="detailed-stats">
       <div className="detailed-stats-header">
@@ -51,7 +49,7 @@ const DetailedStats = ({
           </div>
           <div className="detailed-stats-item">
             {getStat("todayVaccinated")}
-            <span>vaccine doses</span>
+            <span>vaccines (last 5 days)</span>
           </div>
           <div className="detailed-stats-item">
             {getStat("todayRecovered")}

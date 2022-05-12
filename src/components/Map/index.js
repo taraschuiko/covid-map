@@ -33,7 +33,7 @@ const Map = () => {
             currentStats[countryIndex] = {
               ...stats[countryIndex],
               vaccinated: values[1],
-              todayVaccinated: values[4] - values[3],
+              todayVaccinated: values[4] - values[0],
             };
           });
 
@@ -61,7 +61,7 @@ const Map = () => {
           return {
             ...stats,
             vaccinated: values[0],
-            todayVaccinated: values[4] - values[3],
+            todayVaccinated: values[4] - values[0],
           };
         });
 
