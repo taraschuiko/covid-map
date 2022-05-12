@@ -17,7 +17,7 @@ const Map = () => {
       ).then((r) => r.json());
 
       stats = await fetch(
-        "https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=2&fullData=false"
+        "https://disease.sh/v3/covid-19/vaccine/coverage/countries?lastdays=5&fullData=false"
       )
         .then((r) => r.json())
         .then((vaccineData) => {
@@ -33,7 +33,7 @@ const Map = () => {
             currentStats[countryIndex] = {
               ...stats[countryIndex],
               vaccinated: values[1],
-              todayVaccinated: values[1] - values[0],
+              todayVaccinated: values[4] - values[3],
             };
           });
 
@@ -53,7 +53,7 @@ const Map = () => {
       ).then((r) => r.json());
 
       stats = await fetch(
-        "https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=2&fullData=false"
+        "https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=5&fullData=false"
       )
         .then((r) => r.json())
         .then((data) => {
@@ -61,7 +61,7 @@ const Map = () => {
           return {
             ...stats,
             vaccinated: values[0],
-            todayVaccinated: values[0] - values[1],
+            todayVaccinated: values[4] - values[3],
           };
         });
 

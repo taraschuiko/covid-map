@@ -19,6 +19,8 @@ const DetailedStats = ({
 
   const closeCountryStats = () => setActiveCountryStats(null);
 
+  console.log(activeCountryStats);
+
   return (
     <div className="detailed-stats">
       <div className="detailed-stats-header">
